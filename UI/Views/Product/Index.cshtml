@@ -1,0 +1,89 @@
+﻿@model List<Entities.Concrete.Product>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.SuccessMessage != null)
+{
+    <div class="alert alert-success">
+        @ViewBag.SuccessMessage
+    </div>
+}
+
+@using (Html.BeginForm("Add", "Product", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.Label("Kategori")
+        @Html.DropDownList("CategoryId", (SelectList)ViewBag.Categories, "Bir kategori seçin", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="Name">Ürün Adı: </label>
+        <input type="text" id="Name" name="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="Price">Fiyat: </label>
+        <input type="text" id="Price" name="Price" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="Stock">Miktar: </label>
+        <input type="text" id="Stock" name="Stock" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="Desc">Tanım: </label>
+        <input type="text" id="Desc" name="Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="Picture">Foto (URL): </label>
+        <input type="text" id="Picture" name="Picture" class="form-control" />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Gönder</button>
+}
+
+
+
+<br />
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+</style>
+<table>
+    <tr>
+        <th>No</th>
+        <th>Ürün Adı</th>
+        <th>Kategori</th>
+        <th>Ürün Adedi</th>
+        <th>Ürün Fiyatı</th>
+        <th>Açıklama</th>
+        <th>Foto</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.CategoryId</td>
+            <td>@item.Stock</td>
+            <td>@item.Price</td>
+            <td>@item.Description</td>
+            @*<td><img class="img-fluid" src="@item.Picture"/></td>*@
+            <td><img class="img-fluid" src="@item.Picture" alt="Ürün Fotoğrafı" style="max-width: 100px; max-height: 100px;" /></td>
+
+        </tr>
+    }
+</table>
+
+
+

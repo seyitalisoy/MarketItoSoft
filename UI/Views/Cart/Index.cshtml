@@ -1,0 +1,28 @@
+﻿@model List<Entities.Concrete.Product>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMarket.cshtml";
+}
+
+
+
+<h2>Sepetiniz</h2>
+
+<table>
+    <tr>
+        <th>Ürün</th>
+        <th>Fiyat</th>
+        <th>Fotoğraf</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Price</td>
+            <td><img src="@item.Picture" width="50" /></td>
+        </tr>
+    }
+</table>
+
+<a href" /Home/Shop">Alışverişe Devam Et</a>
+

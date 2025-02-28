@@ -1,0 +1,55 @@
+﻿@model List<Entities.Concrete.Order>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+</style>
+<table>
+    <tr>
+        <th>Sipariş No</th>
+        <th>Ürün No</th>
+        <th>Müşteri TC</th>
+        <th>Sipariş Tarihi</th>
+        <th>Ürün Miktar</th>
+        <th>Toplam Fiyat</th>
+        <th>Adres</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.OrderId</td>
+            <td>@item.ProductId</td>
+            <td>@item.CustomerId</td>
+            <td>@item.OrderDate</td>
+            <td>@item.ProductAmount</td>
+            <td>@item.Price</td>
+            <td>@item.Adress</td>
+        </tr>
+    }
+</table>
+
+@*public int Id { get; set; }
+public int OrderId { get; set; }
+public int ProductId { get; set; }
+public virtual Product Product{ get; set; }
+public long CustomerId { get; set; }
+public virtual Customer Customer { get; set; }
+public DateTime OrderDate { get; set; }
+public int ProductAmount { get; set; }
+public decimal Price { get; set; }
+public string Adress { get; set; }*@

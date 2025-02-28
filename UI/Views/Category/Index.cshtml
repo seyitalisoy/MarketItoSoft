@@ -1,0 +1,52 @@
+﻿﻿
+@model List<Entities.Concrete.Category>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if (ViewBag.SuccessMessage != null)
+{
+    <div class="alert alert-success">
+        @ViewBag.SuccessMessage
+    </div>
+}
+@using (Html.BeginForm("Add", "Category", FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="Name">Kategori Adı: </label>
+        <input type="text" id="Name" name="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="Desc">Açıklama: </label>
+        <input type="text" id="Desc" name="Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="Picture">Resim (URL): </label>
+        <input type="text" id="Picture" name="Picture" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Ekle</button>
+}
+
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Fotoğraf</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.Description</td>
+            <td><img class="img-fluid" src="@item.Picture" /></td>
+        </tr>
+    }
+</table>
+
+
+
+

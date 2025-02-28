@@ -1,0 +1,139 @@
+﻿﻿
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ana sayfa</title>
+
+    <!-- font awesome cdn linki  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- özel css dosyası linki  -->
+    <link rel="stylesheet" href="~/grocery website/css/style.css">
+
+</head>
+
+<body>
+    <!-- header bölümü başlar  -->
+
+    <header class="header">
+
+        <a href="/" class="logo"> <i class="fas fa-shopping-basket"></i> MARKET </a>
+
+        <nav class="navbar">
+            <a href="/">Ana sayfa</a>
+            <a href="/Home/Shop">Mağaza</a>
+            <a href="/Home/About">Hakkında</a>
+            <a href="/Home/Contact">İletişim</a>
+        </nav>
+
+        <div class="icons">
+            <div id="menu-btn" class="fas fa-bars"></div>
+            <div id="search-btn" class="fas fa-search"></div>
+            <div id="cart-btn" class="fas fa-shopping-cart"></div>
+            <a href="/Product/Index"><div id="admin-profile" class="fas fa-user-circle"></div></a>
+        </div>
+
+        <form action="" class="search-form">
+            <input type="search" placeholder="Burada arama yapın..." id="search-box">
+            <label for="search-box" class="fas fa-search"></label>
+        </form>
+
+        <div class="shopping-cart">
+            <div class="box">
+                <i class="fas fa-times"></i>
+                <img src="~/grocery website/image/cart-1.jpg" alt="">
+                <div class="content">
+                    <h3>Organik gıda</h3>
+                    <span class="quantity">1</span>
+                    <span class="multiply">x</span>
+                    <span class="price">$18.99</span>
+                </div>
+            </div>
+            <div class="box">
+                <i class="fas fa-times"></i>
+                <img src="~/grocery website/image/cart-2.jpg" alt="">
+                <div class="content">
+                    <h3>Organik gıda</h3>
+                    <span class="quantity">1</span>
+                    <span class="multiply">x</span>
+                    <span class="price">$18.99</span>
+                </div>
+            </div>
+            <div class="box">
+                <i class="fas fa-times"></i>
+                <img src="~/grocery website/image/cart-3.jpg" alt="">
+                <div class="content">
+                    <h3>Organik gıda</h3>
+                    <span class="quantity">1</span>
+                    <span class="multiply">x</span>
+                    <span class="price">$18.99</span>
+                </div>
+            </div>
+            <h3 class="total"> Toplam : <span>56.97</span> </h3>
+            <a href="#" class="btn">Sepete git</a>
+        </div>
+
+
+
+    </header>
+
+    <!-- header bölümü biter -->
+
+    @RenderBody()
+
+    <!-- footer bölümü başlar  -->
+
+    <section class="footer">
+
+        <div class="box-container">
+
+            <div class="box">
+                <h3>Hızlı linkler</h3>
+                <a href="/"> <i class="fas fa-arrow-right"></i>Ana sayfa</a>
+                <a href="/Home/Shop"> <i class="fas fa-arrow-right"></i> Mağaza</a>
+                <a href="/Home/About"> <i class="fas fa-arrow-right"></i> Hakkında</a>
+                @*<a href="/Market/Review"> <i class="fas fa-arrow-right"></i> Yorumlar</a>*@
+                @*<a href="/Market/Blog"> <i class="fas fa-arrow-right"></i> Blog</a>*@
+                <a href="/Home/Contact"> <i class="fas fa-arrow-right"></i> İletişim</a>
+            </div>
+
+            <div class="box">
+                <h3>ekstra linkler</h3>
+                <a href="#"> <i class="fas fa-arrow-right"></i> siparişlerim </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> favorilerim </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> istek listem </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> hesabım </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> kullanım şartları </a>
+            </div>
+
+            <div class="box">
+                <h3>bizi takip edin</h3>
+                <a href="#"> <i class="fab fa-facebook-f"></i> facebook </a>
+                <a href="#"> <i class="fab fa-twitter"></i> twitter </a>
+                <a href="#"> <i class="fab fa-youtube"></i> youtube </a>
+                <a href="#"> <i class="fab fa-instagram"></i> instagram </a>
+                <a href="#"> <i class="fab fa-linkedin"></i> linkedin </a>
+                <a href="#"> <i class="fab fa-pinterest"></i> pinterest </a>
+            </div>
+
+            <div class="box">
+                <h3>Bülten</h3>
+                <p>Son güncellemeler için abone olun</p>
+                <form action="">
+                    <input type="email" placeholder="e-posta adresinizi girin">
+                    <input type="submit" value="abone ol" class="btn">
+                </form>
+                <img src="~/grocery website/image/payment.png" class="payment" alt="">
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="credit">Oluşturan Talha-Yahya-Ali  | tüm hakları saklıdır!</section>
+
+    <!-- footer bölümü biter -->
+    <!-- özel css dosyası linki  -->
+    <script src="~/grocery website/js/script.js"></script>
+</body>

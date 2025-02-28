@@ -1,0 +1,39 @@
+﻿@model List<Entities.Concrete.Customer>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+</style>
+<table>
+    <tr>
+        <th>Müşteri TC</th>
+        <th>Ad Soyad</th>
+        <th>Telefon</th>
+
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.TC</td>
+            <td>@item.Name</td>
+            <td>@item.Phone</td>
+
+        </tr>
+    }
+</table>
+
