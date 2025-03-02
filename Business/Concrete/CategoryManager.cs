@@ -23,6 +23,11 @@ namespace Business.Concrete
             _categoryDal.Add(entity);
         }
 
+        public void Delete(Category entity)
+        {
+            _categoryDal.Delete(entity);
+        }
+
         public List<Category> GetAll()
         {
             return _categoryDal.GetAll();

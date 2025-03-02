@@ -16,8 +16,11 @@
                 <h3>@item.ProductName</h3>
                 <p>Miktar: @item.Quantity</p>
                 <p>Fiyat: @string.Format("{0:C}", item.Price)</p>
-            </div>
-            <span class="remove-item">X</span>
+            </div>            
+            
+            <span>
+            <a href="@Url.Action("RemoveFromCart", "Cart", new { productId =item.ProductId})"  class="remove-item">X</a>
+            </span>
         </div>
     }
 

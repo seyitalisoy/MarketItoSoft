@@ -38,8 +38,20 @@ namespace UI.Controllers
             }
 
             _productService.Add(product);
-            TempData["SuccessMessage"] = "Ürün Eklenmiştir";
+            TempData["AddMessage"] = "Ürün Eklenmiştir";
 
+            return RedirectToAction("Index");
+        }
+
+        //[HttpPost]
+        public ActionResult RemoveProduct(int id)
+        {
+            var product = _productService.GetById(id);
+
+            _productService.Delete(product);
+            TempData["RemoveMessage"] = "Ürün Silinmiştir";
+            //var categories = _categoryService.GetAll();
+            //ViewBag.Categories = new SelectList(categories, "Id", "Name");
             return RedirectToAction("Index");
         }
     }

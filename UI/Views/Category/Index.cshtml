@@ -26,14 +26,16 @@
         <label for="Picture">Resim (URL): </label>
         <input type="text" id="Picture" name="Picture" class="form-control" />
     </div>
+    <br />
     <button type="submit" class="btn btn-primary">Ekle</button>
+    <br />
 }
 
 <table class="table">
     <tr>
-        <th>Id</th>
+        <th>No</th>
         <th>Name</th>
-        <th>Description</th>
+        <th>Açıklama</th>
         <th>Fotoğraf</th>
     </tr>
     @foreach (var item in Model)

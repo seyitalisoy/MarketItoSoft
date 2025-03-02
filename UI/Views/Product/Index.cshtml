@@ -4,10 +4,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (ViewBag.SuccessMessage != null)
+@if (TempData["AddMessage"] != null)
 {
     <div class="alert alert-success">
-        @ViewBag.SuccessMessage
+        @TempData["AddMessage"]
+    </div>
+}
+@if (TempData["RemoveMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["RemoveMessage"]
     </div>
 }
 
@@ -38,7 +44,7 @@
         <input type="text" id="Picture" name="Picture" class="form-control" />
     </div>
     <br />
-    <button type="submit" class="btn btn-primary">Gönder</button>
+    <button type="submit" class="btn btn-primary">Ekle</button>
 }
 
 
@@ -68,6 +74,8 @@
         <th>Ürün Fiyatı</th>
         <th>Açıklama</th>
         <th>Foto</th>
+        @*<th></th>*@
+
     </tr>
     @foreach (var item in Model)
     {
@@ -80,7 +88,11 @@
             <td>@item.Description</td>
             @*<td><img class="img-fluid" src="@item.Picture"/></td>*@
             <td><img class="img-fluid" src="@item.Picture" alt="Ürün Fotoğrafı" style="max-width: 100px; max-height: 100px;" /></td>
-
+            <td>
+                <a href="@Url.Action("RemoveProduct", "Product", new { id = item.Id })" class="text-danger">
+                    <i class="bi bi-trash"></i>
+                </a>
+            </td>
         </tr>
     }
 </table>
