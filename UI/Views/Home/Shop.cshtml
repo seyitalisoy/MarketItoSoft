@@ -1,4 +1,4 @@
-﻿﻿
+﻿@model UI.Models.ViewModel.MainPageViewModel
 @{
     ViewBag.Title = "Shop";
     Layout = "~/Views/Shared/_LayoutMarket.cshtml";
@@ -16,27 +16,27 @@
 
     <div class="box-container">
 
-        <a href="#" class="box">
+        <a href="@Url.Action("ListProductByCategory", "Home", new { id = 1})" class="box">
             <img src="~/grocery website/image/cat-1.png" alt="">
             <h3>taze meyveler</h3>
         </a>
 
-        <a href="#" class="box">
+        <a href="@Url.Action("ListProductByCategory", "Home", new { id = 2})" class="box">
             <img src="~/grocery website/image/cat-2.png" alt="">
             <h3>sebzeler</h3>
         </a>
 
-        <a href="#" class="box">
+        <a href="@Url.Action("ListProductByCategory", "Home", new { id = 3})" class="box">
             <img src="~/grocery website/image/cat-3.png" alt="">
             <h3>organik baharatlar</h3>
         </a>
 
-        <a href="#" class="box">
+        <a href="@Url.Action("ListProductByCategory", "Home", new { id = 4})" class="box">
             <img src="~/grocery website/image/cat-4.png" alt="">
             <h3>taze et</h3>
         </a>
 
-        <a href="#" class="box">
+        <a href="@Url.Action("ListProductByCategory", "Home", new { id = 5})" class="box">
             <img src="~/grocery website/image/cat-5.png" alt="">
             <h3>organik buğday</h3>
         </a>
@@ -50,182 +50,24 @@
     <h1 class="title">  <span>Ürünlerimiz</span> </h1>
 
     <div class="box-container">
+        @foreach (var item in Model.Products) { 
+            <div class="box">
+                <div class="icons">
+                    <a href="@Url.Action("AddToCart", "Cart", new { productId  = item.Id })"  class="fas fa-shopping-cart"></a>
 
-        <div class="box">
-            <div class="icons">
-                <a href="#" class="fas fa-shopping-cart"></a>
-                <a href="#" class="fas fa-heart"></a>
-                <a href="#" class="fas fa-eye"></a>
-            </div>
-            <div class="image">
-                <img src="~/grocery website/image/product-1.jpg" alt="">
-            </div>
-            <div class="content">
-                <h3>organik gıda</h3>
-                <div class="price">$18.99</div>
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
+                    <a href="@Url.Action("ProductDetail", "Home", new { id = item.Id })" class="fas fa-eye"></a>
+                </div>
+                <div class="image">
+                    <img src="@item.Picture" alt="">
+                </div>
+                <div class="content">
+                    <h3>@item.Name</h3>
+                    <div class="price">@item.Price</div>
+
                 </div>
             </div>
-        </div>
+        }
 
-        <div class="box">
-            <div class="icons">
-                <a href="#" class="fas fa-shopping-cart"></a>
-                <a href="#" class="fas fa-heart"></a>
-                <a href="#" class="fas fa-eye"></a>
-            </div>
-            <div class="image">
-                <img src="~/grocery website/image/product-2.jpg" alt="">
-            </div>
-            <div class="content">
-                <h3>organik gıda</h3>
-                <div class="price">$18.99</div>
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="icons">
-                <a href="#" class="fas fa-shopping-cart"></a>
-                <a href="#" class="fas fa-heart"></a>
-                <a href="#" class="fas fa-eye"></a>
-            </div>
-            <div class="image">
-                <img src="~/grocery website/image/product-3.jpg" alt="">
-            </div>
-            <div class="content">
-                <h3>organik gıda</h3>
-                <div class="price">$18.99</div>
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="icons">
-                <a href="#" class="fas fa-shopping-cart"></a>
-                <a href="#" class="fas fa-heart"></a>
-                <a href="#" class="fas fa-eye"></a>
-            </div>
-            <div class="image">
-                <img src="~/grocery website/image/product-4.jpg" alt="">
-            </div>
-            <div class="content">
-                <h3>organik gıda</h3>
-                <div class="price">$18.99</div>
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="icons">
-                <a href="#" class="fas fa-shopping-cart"></a>
-                <a href="#" class="fas fa-heart"></a>
-                <a href="#" class="fas fa-eye"></a>
-            </div>
-            <div class="image">
-                <img src="~/grocery website/image/product-5.jpg" alt="">
-            </div>
-            <div class="content">
-                <h3>organik gıda</h3>
-                <div class="price">$18.99</div>
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="icons">
-                <a href="#" class="fas fa-shopping-cart"></a>
-                <a href="#" class="fas fa-heart"></a>
-                <a href="#" class="fas fa-eye"></a>
-            </div>
-            <div class="image">
-                <img src="~/grocery website/image/product-6.jpg" alt="">
-            </div>
-            <div class="content">
-                <h3>organik gıda</h3>
-                <div class="price">$18.99</div>
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="icons">
-                <a href="#" class="fas fa-shopping-cart"></a>
-                <a href="#" class="fas fa-heart"></a>
-                <a href="#" class="fas fa-eye"></a>
-            </div>
-            <div class="image">
-                <img src="~/grocery website/image/product-7.jpg" alt="">
-            </div>
-            <div class="content">
-                <h3>organik gıda</h3>
-                <div class="price">$18.99</div>
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="icons">
-                <a href="#" class="fas fa-shopping-cart"></a>
-                <a href="#" class="fas fa-heart"></a>
-                <a href="#" class="fas fa-eye"></a>
-            </div>
-            <div class="image">
-                <img src="~/grocery website/image/product-8.jpg" alt="">
-            </div>
-            <div class="content">
-                <h3>organik gıda</h3>
-                <div class="price">$18.99</div>
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
-                </div>
-            </div>
-        </div>
 
     </div>
 

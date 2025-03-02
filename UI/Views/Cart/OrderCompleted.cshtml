@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "OrderCompleted";
+    Layout = "~/Views/Shared/_LayoutMarket.cshtml";
+}
+
+<style>
+    /* Sayfa genel stili */
+    .order-completed-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        background-color: #f8f9fa;
+        padding: 20px;
+    }
+
+    /* İçerik kutusu */
+    .order-completed-container {
+        max-width: 600px;
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+        .order-completed-container h2 {
+            color: #28a745;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .order-completed-container p {
+            font-size: 18px;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+    /* Buton */
+    .btn-return-home {
+        display: inline-block;
+        padding: 12px 20px;
+        font-size: 18px;
+        font-weight: bold;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background 0.3s ease-in-out;
+    }
+
+        .btn-return-home:hover {
+            background-color: #0056b3;
+        }
+</style>
+
+<div class="order-completed-wrapper">
+    <div class="order-completed-container">
+        <h2>Teşekkürler! Siparişiniz Alınmıştır</h2>
+        <p>Siparişiniz başarıyla tamamlanmıştır. Kısa süre içinde tarafınıza ulaşacaktır.</p>
+        <a href="@Url.Action("Index", "Home")" class="btn-return-home">Anasayfaya Dön</a>
+    </div>
+</div>

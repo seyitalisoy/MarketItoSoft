@@ -1,0 +1,87 @@
+﻿@model Entities.Concrete.Product
+@{
+    ViewBag.Title = "ProductDetail";
+    Layout = "~/Views/Shared/_LayoutMarket.cshtml";
+}
+<section class="products">
+    <div class="box-container">
+        <div class="box">
+            <div class="icons">
+                <a href="@Url.Action("AddToCart", "Cart", new { productId = Model.Id })" class="fas fa-shopping-cart"></a>
+            </div>
+            <div class="image">
+                <img src="@Model.Picture" alt="Ürün Resmi" class="product-image">
+            </div>
+            <div class="content">
+                <h3>@Model.Name</h3>
+                <div class="price">@Model.Price</div>
+                <div class="description">@Model.Description</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .products {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .box-container {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .box {
+        border: 1px solid #ddd;
+        width: 300px;
+        padding: 15px;
+        text-align: center;
+        position: relative;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+
+
+    .fas.fa-shopping-cart {
+        font-size: 24px;
+        color: black;
+    }
+
+    .image {
+        width: 100%;
+        height: 250px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .product-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        max-height: 250px;
+    }
+
+    .content {
+        padding: 10px;
+    }
+
+
+
+    .price {
+        color: green;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .description {
+        font-size: 14px;
+        color: #555;
+    }
+
+</style>

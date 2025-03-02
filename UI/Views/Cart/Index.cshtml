@@ -1,28 +1,107 @@
-﻿@model List<Entities.Concrete.Product>
+﻿@model UI.Models.ViewModel.CartViewModel
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Sepet";
     Layout = "~/Views/Shared/_LayoutMarket.cshtml";
 }
 
+<h2 class="text-center"></h2>
 
-
-<h2>Sepetiniz</h2>
-
-<table>
-    <tr>
-        <th>Ürün</th>
-        <th>Fiyat</th>
-        <th>Fotoğraf</th>
-    </tr>
-    @foreach (var item in Model)
+<div class="product-list">
+    @foreach (var item in Model.CartItems)
     {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Price</td>
-            <td><img src="@item.Picture" width="50" /></td>
-        </tr>
+        <div class="product-item">
+            <img src="@item.Product.Picture" alt="@item.Product.Name" class="product-img">
+            <div class="product-details">
+                <h3>@item.ProductName</h3>
+                <p>Miktar: @item.Quantity</p>
+                <p>Fiyat: @string.Format("{0:C}", item.Price)</p>
+            </div>
+            <span class="remove-item">X</span>
+        </div>
     }
-</table>
 
-<a href" /Home/Shop">Alışverişe Devam Et</a>
+    <div class="total-price">
+        <h3>Toplam: @string.Format("{0:C}", Model.TotalPrice)</h3>
+    </div>
 
+    <a href="/Cart/Checkout" class="checkout-btn">Siparişi Tamamla</a>
+</div>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 80px; /* Navbar ile çakışmayı engellemek için üstte boşluk bıraktım */
+    }
+
+    .product-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 20px;
+        width: 100%; /* Sayfanın genişliği kadar kullanabilmesi için */
+    }
+
+    .product-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid #ccc;
+        padding: 15px;
+        width: 70%; /* Tabloyu daraltmak için genişliği %70 olarak ayarladım */
+        margin-bottom: 15px;
+        border-radius: 8px;
+        position: relative;
+        box-sizing: border-box;
+    }
+
+    .product-img {
+        width: 60px; /* Fotoğraf boyutunu daha da küçülttüm */
+        height: 60px;
+        object-fit: cover;
+        margin-right: 20px;
+    }
+
+    .product-details {
+        flex-grow: 1;
+        padding-right: 15px;
+    }
+
+    .remove-item {
+        color: red;
+        font-weight: bold;
+        font-size: 20px;
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    .total-price {
+        margin-top: 30px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .checkout-btn {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        display: block;
+        margin: 20px auto;
+        width: 200px;
+    }
+
+        .checkout-btn:hover {
+            background-color: #218838;
+        }
+</style>

@@ -1,4 +1,4 @@
-﻿﻿
+﻿
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,7 +30,8 @@
         <div class="icons">
             <div id="menu-btn" class="fas fa-bars"></div>
             <div id="search-btn" class="fas fa-search"></div>
-            <div id="cart-btn" class="fas fa-shopping-cart"></div>
+            @*<div id="cart-btn" class="fas fa-shopping-cart"></div>*@
+            <a href="/Cart/Index"><div class="fas fa-shopping-cart"></div></a>
             <a href="/Product/Index"><div id="admin-profile" class="fas fa-user-circle"></div></a>
         </div>
 
@@ -39,7 +40,7 @@
             <label for="search-box" class="fas fa-search"></label>
         </form>
 
-        <div class="shopping-cart">
+        @*<div class="shopping-cart">
             <div class="box">
                 <i class="fas fa-times"></i>
                 <img src="~/grocery website/image/cart-1.jpg" alt="">
@@ -71,9 +72,27 @@
                 </div>
             </div>
             <h3 class="total"> Toplam : <span>56.97</span> </h3>
-            <a href="#" class="btn">Sepete git</a>
-        </div>
+            <a href="/Cart/Index" class="btn">Sepete git</a>
+        </div>*@
+        @*<div class="shopping-cart">
+            @foreach (var item in Model.CartItems)
+            {
+                <div class="box">
+                    <i class="fas fa-times"></i>
+                    <img src="@item.Product.Picture" alt="@item.ProductName" style="width: 60px; height: 60px;">
+                    <div class="content">
+                        <h3>@item.ProductName</h3>
+                        <span class="quantity">@item.Quantity</span>
+                        <span class="multiply">x</span>
+                        <span class="price">@string.Format("{0:C}", item.Price)</span>
+                    </div>
+                </div>
+            }
 
+            <h3 class="total">Toplam: <span>@string.Format("{0:C}", Model.TotalPrice)</span></h3>
+
+            <a href="/Cart/Checkout" class="btn">Sepete git</a>
+        </div>*@
 
 
     </header>

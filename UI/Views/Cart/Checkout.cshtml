@@ -1,0 +1,108 @@
+﻿@model UI.Models.ViewModel.CheckoutViewModel
+
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_LayoutMarket.cshtml";
+}
+
+<style>
+    /* Genel konteyner */
+    .checkout-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f8f9fa;
+        padding: 20px;
+    }
+
+    /* Form alanı */
+    .checkout-container {
+        width: 100%;
+        max-width: 500px;
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+        .checkout-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+    /* Form grupları */
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            resize: none;
+            height: 100px;
+        }
+
+    /* Gönder butonu */
+    .btn-submit {
+        width: 100%;
+        padding: 12px;
+        font-size: 18px;
+        font-weight: bold;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease-in-out;
+    }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+</style>
+
+<div class="checkout-wrapper">
+    <div class="checkout-container">
+        <h2>Kullanıcı Bilgileri</h2>
+
+        <form method="post" action="@Url.Action("CompleteOrder", "Cart")">
+            <div class="form-group">
+                <label for="TC">TC Kimlik No</label>
+                <input type="text" id="TC" name="TC" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Name">Adı Soyadı</label>
+                <input type="text" id="Name" name="Name" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Phone">Telefon Numarası</label>
+                <input type="tel" id="Phone" name="Phone" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Address">Adres</label>
+                <textarea id="Address" name="Address" class="form-control" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Siparişi Tamamla</button>
+        </form>
+    </div>
+</div>
