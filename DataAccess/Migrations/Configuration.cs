@@ -7,7 +7,7 @@
 
     internal sealed class Configuration : DbMigrationsConfiguration<DataAccess.Concrete.MarketContext>
     {
-        public Configuration()
+            public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }

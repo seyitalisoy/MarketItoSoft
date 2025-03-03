@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -26,6 +27,11 @@ namespace Business.Concrete
         public List<Order> GetAll()
         {
             return _orderDal.GetAll();
+        }
+
+        public List<OrderListDto> GetOrderDetails()
+        {
+            return _orderDal.GetOrderDetails();
         }
     }
 }

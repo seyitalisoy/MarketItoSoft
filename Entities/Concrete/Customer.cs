@@ -13,8 +13,7 @@ namespace Entities.Concrete
     {
         [Key]
         public int Id { get; set; }
-        [Index(IsUnique = true)]
-        public long TC { get; set; }
+        public string Email { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
         

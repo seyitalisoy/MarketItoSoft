@@ -4,23 +4,30 @@
     ViewBag.Title = "Sepet";
     Layout = "~/Views/Shared/_LayoutMarket.cshtml";
 }
-
-<h2 class="text-center"></h2>
+<h2></h2>
 
 <div class="product-list">
     @foreach (var item in Model.CartItems)
     {
         <div class="product-item">
-            <img src="@item.Product.Picture" alt="@item.Product.Name" class="product-img">
+            <img src="@item.Product.Picture" alt="@item.ProductName" class="product-img">
             <div class="product-details">
-                <h3>@item.ProductName</h3>
-                <p>Miktar: @item.Quantity</p>
-                <p>Fiyat: @string.Format("{0:C}", item.Price)</p>
-            </div>            
-            
-            <span>
-            <a href="@Url.Action("RemoveFromCart", "Cart", new { productId =item.ProductId})"  class="remove-item">X</a>
-            </span>
+                <h1>@item.ProductName</h1>
+                <h1>Fiyat: @string.Format("{0:C}", item.Price)</h1>
+            </div>
+
+            <div class="quantity-control">
+                <!-- Miktarı azaltma butonu -->
+                <a href="@Url.Action("DecreaseQuantity", "Cart", new { productId = item.ProductId })" class="quantity-btn">-</a>
+                <h1>@item.Quantity</h1>
+                <!-- Miktarı artırma butonu -->
+                <a href="@Url.Action("IncreaseQuantity", "Cart", new { productId = item.ProductId })" class="quantity-btn">+</a>
+            </div>
+
+            <!-- Remove butonu ekleniyor -->
+            <div class="remove-item">
+                <a href="@Url.Action("RemoveFromCart", "Cart", new { productId = item.ProductId })" class="text-danger"><i class="bi bi-trash"></i></a>
+            </div>
         </div>
     }
 
@@ -31,7 +38,82 @@
     <a href="/Cart/Checkout" class="checkout-btn">Siparişi Tamamla</a>
 </div>
 
+
+
+
 <style>
+    .remove-item {
+        margin-left: 20px; /* Sağ tarafa biraz boşluk bırak */
+    }
+
+        .remove-item a {
+            font-size: 20px; /* Çöp kutusu boyutunu ayarla */
+            color: red;
+            text-decoration: none;
+        }
+
+            .remove-item a:hover {
+                color: darkred;
+            }
+
+    .product-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid #ccc;
+        padding: 15px;
+        width: 70%; /* Tabloyu daraltmak için genişliği %70 olarak ayarladım */
+        margin-bottom: 15px;
+        border-radius: 8px;
+        position: relative; /* Remove butonunun yerini doğru ayarlamak için */
+        box-sizing: border-box;
+    }
+
+
+    .quantity-control {
+        display: flex;
+        align-items: center;
+    }
+
+    .quantity-btn {
+        font-size: 18px;
+        color: #d9534f; /* Kırmızı */
+        text-decoration: none;
+        padding: 5px;
+        margin: 3px 0;
+        width: 30px;
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f8f9fa;
+    }
+
+        .quantity-btn:hover {
+            background-color: #f1f1f1;
+        }
+
+    .total-price {
+        margin-top: 30px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .checkout-btn {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        display: block;
+        margin: 20px auto;
+        width: 200px;
+    }
+
+        .checkout-btn:hover {
+            background-color: #218838;
+        }
+
     body {
         margin: 0;
         padding: 0;
@@ -76,15 +158,7 @@
         padding-right: 15px;
     }
 
-    .remove-item {
-        color: red;
-        font-weight: bold;
-        font-size: 20px;
-        cursor: pointer;
-        position: absolute;
-        top: 10px;
-        right: 10px;
-    }
+
 
     .total-price {
         margin-top: 30px;
@@ -106,5 +180,50 @@
 
         .checkout-btn:hover {
             background-color: #218838;
+        }
+
+    .quantity-control {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px; /* Butonlar ve miktar arasındaki boşluğu ayarlamak için */
+    }
+
+    .quantity-btn {
+        font-size: 18px;
+        color: #d9534f; /* Kırmızı */
+        text-decoration: none;
+        padding: 5px;
+        width: 30px;
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f8f9fa;
+    }
+
+        .quantity-btn:hover {
+            background-color: #f1f1f1;
+        }
+
+    .quantity-text {
+        margin: 0;
+        font-size: 16px;
+    }
+
+    .quantity-btn {
+        font-size: 18px;
+        color: #d9534f; /* Kırmızı */
+        text-decoration: none;
+        padding: 5px;
+        margin: 3px 0; /* Butonlar arasındaki boşluk */
+        width: 30px;
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f8f9fa;
+    }
+
+        .quantity-btn:hover {
+            background-color: #f1f1f1;
         }
 </style>

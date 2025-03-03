@@ -11,15 +11,16 @@ namespace UI.Controllers
     {
         IOrderService _orderService;
 
+
         public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
-
         }
 
         public ActionResult Index()
         {
-            return View(_orderService.GetAll());
+            
+            return View(_orderService.GetOrderDetails().ToList());
         }
     }
 }

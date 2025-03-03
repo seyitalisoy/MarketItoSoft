@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Abstract
 {
@@ -11,5 +12,7 @@ namespace Business.Abstract
     {
         List<Order> GetAll();
         void Add(Order entity);
+
+        List<OrderListDto> GetOrderDetails();
     }
 }

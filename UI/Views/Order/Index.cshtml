@@ -1,4 +1,4 @@
-﻿@model List<Entities.Concrete.Order>
+﻿@model List<Entities.DTOs.OrderListDto>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -22,8 +22,9 @@
 <table>
     <tr>
         <th>Sipariş No</th>
-        <th>Ürün No</th>
-        <th>Müşteri TC</th>
+        <th>Ürün Adı</th>
+        <th>Müşteri Email</th>
+        <th>Müşteri Tel No</th>
         <th>Sipariş Tarihi</th>
         <th>Ürün Miktar</th>
         <th>Fiyat</th>
@@ -33,10 +34,11 @@
     {
         <tr>
             <td>@item.OrderId</td>
-            <td>@item.ProductId</td>
-            <td>@item.CustomerId</td>
+            <td>@item.ProductName</td>
+            <td>@item.CustomerEmail</td>
+            <td>@item.CustomerPhone</td>
             <td>@item.OrderDate</td>
-            <td>@item.ProductAmount</td>
+            <td>@item.Amount</td>
             <td>@item.Price</td>
             <td>@item.Adress</td>
         </tr>

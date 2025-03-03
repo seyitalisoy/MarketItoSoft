@@ -7,6 +7,7 @@ using Business.Abstract;
 using Business.Concrete;
 using DataAccess.Concrete;
 using Entities.Concrete;
+using UI.Helpers;
 using UI.Models.ViewModel;
 
 namespace UI.Controllers
@@ -64,6 +65,34 @@ namespace UI.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        [HttpPost]
+        public JsonResult AddToCart(int productId, int quantity = 1)
+        {
+            var product = _productService.GetById(productId);
+            if (product != null)
+            {
+                var cart = SessionHelper.GetCart(HttpContext);
+                cart.AddItem(product, quantity);
+                SessionHelper.SetCart(HttpContext, cart);
+
+                // Sepet miktarını al
+                int cartItemCount = cart.Items.Sum(i => i.Quantity);
+
+                // Success response ile birlikte sepetin toplam ürün miktarını döndür
+                return Json(new { success = true, message = "Ürün sepete eklendi!", cartItemCount = cartItemCount });
+            }
+
+            return Json(new { success = false, message = "Ürün bulunamadı!" });
+        }
+
+        public JsonResult GetCartItemCount()
+        {
+            var cart = SessionHelper.GetCart(HttpContext);
+            int cartItemCount = cart.Items.Sum(i => i.Quantity);
+
+            // Sepetin toplam miktarını döndür
+            return Json(new { cartItemCount = cartItemCount }, JsonRequestBehavior.AllowGet);
         }
     }
 }

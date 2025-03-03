@@ -9,7 +9,6 @@
     <h1>Mağazamız</h1>
     <p> <a href="home.html">ana sayfa >></a> Mağaza </p>
 </div>
-
 <section class="category">
 
     <h1 class="title">  <span>Kategorilerimiz</span>  </h1>
@@ -18,27 +17,27 @@
 
         <a href="@Url.Action("ListProductByCategory", "Home", new { id = 1})" class="box">
             <img src="~/grocery website/image/cat-1.png" alt="">
-            <h3>taze meyveler</h3>
+            <h3>Meyveler</h3>
         </a>
 
         <a href="@Url.Action("ListProductByCategory", "Home", new { id = 2})" class="box">
             <img src="~/grocery website/image/cat-2.png" alt="">
-            <h3>sebzeler</h3>
+            <h3>Sebzeler</h3>
         </a>
 
         <a href="@Url.Action("ListProductByCategory", "Home", new { id = 3})" class="box">
             <img src="~/grocery website/image/cat-3.png" alt="">
-            <h3>organik baharatlar</h3>
+            <h3>Baharatlar</h3>
         </a>
 
         <a href="@Url.Action("ListProductByCategory", "Home", new { id = 4})" class="box">
             <img src="~/grocery website/image/cat-4.png" alt="">
-            <h3>taze et</h3>
+            <h3>Et-Tavuk-Balık</h3>
         </a>
 
         <a href="@Url.Action("ListProductByCategory", "Home", new { id = 5})" class="box">
             <img src="~/grocery website/image/cat-5.png" alt="">
-            <h3>organik buğday</h3>
+            <h3>Fırından</h3>
         </a>
 
     </div>
@@ -50,11 +49,11 @@
     <h1 class="title">  <span>Ürünlerimiz</span> </h1>
 
     <div class="box-container">
-        @foreach (var item in Model.Products) { 
+        @foreach (var item in Model.Products)
+        {
             <div class="box">
                 <div class="icons">
-                    <a href="@Url.Action("AddToCart", "Cart", new { productId  = item.Id })"  class="fas fa-shopping-cart"></a>
-
+                    <a href="javascript:void(0);" class="fas fa-shopping-cart" onclick="addToCart(@item.Id)"></a>
                     <a href="@Url.Action("ProductDetail", "Home", new { id = item.Id })" class="fas fa-eye"></a>
                 </div>
                 <div class="image">
@@ -72,3 +71,40 @@
     </div>
 
 </section>
+@section Scripts
+{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>// Sepete ürün eklemek için AJAX fonksiyonu
+        function addToCart(productId) {
+            $.ajax({
+                type: "POST",
+                url: "/Cart/AddToCart",
+                data: { productId: productId, quantity: 1 },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        // Sepet miktarını güncelleme
+                        updateCartQuantity(response.cartItemCount);
+                    } else {
+                        alert("Ürün eklenirken hata oluştu!");
+                    }
+                },
+                error: function () {
+                    alert("Bağlantı hatası!");
+                }
+            });
+        }
+
+        // Sepet miktarını güncelleme fonksiyonu
+        function updateCartQuantity(count) {
+            let cartQuantity = $("#cart-quantity");
+            cartQuantity.text(count); // Yeni değeri ata
+            if (count > 0) {
+                cartQuantity.show(); // Eğer sepet boş değilse göster
+            } else {
+                cartQuantity.hide(); // Sepet boşsa gizle
+            }
+        }</script>
+}
+
+

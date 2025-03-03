@@ -42,8 +42,8 @@ namespace UI.Controllers
 
             return View(model);
         }
-
-        public ActionResult AddToCart(int productId, int quantity = 1)
+        [HttpPost]
+        public JsonResult AddToCart(int productId, int quantity = 1)
         {
             var product = _productService.GetById(productId);
             if (product != null)
@@ -51,9 +51,38 @@ namespace UI.Controllers
                 var cart = SessionHelper.GetCart(HttpContext);
                 cart.AddItem(product, quantity);
                 SessionHelper.SetCart(HttpContext, cart);
+
+                // Sepet miktarını al
+                int cartItemCount = cart.Items.Sum(i => i.Quantity);
+
+                // Success response ile birlikte sepetin toplam ürün miktarını döndür
+                return Json(new { success = true, message = "Ürün sepete eklendi!", cartItemCount = cartItemCount });
             }
-            return RedirectToAction("Index");
+
+            return Json(new { success = false, message = "Ürün bulunamadı!" });
         }
+
+        public JsonResult GetCartItemCount()
+        {
+            var cart = SessionHelper.GetCart(HttpContext);
+            int cartItemCount = cart.Items.Sum(i => i.Quantity);
+
+            // Sepetin toplam miktarını döndür
+            return Json(new { cartItemCount = cartItemCount }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        //public ActionResult AddToCart(int productId, int quantity = 1)
+        //{
+        //    var product = _productService.GetById(productId);
+        //    if (product != null)
+        //    {
+        //        var cart = SessionHelper.GetCart(HttpContext);
+        //        cart.AddItem(product, quantity);
+        //        SessionHelper.SetCart(HttpContext, cart);
+        //    }
+        //    return RedirectToAction("Index");
+        //}
 
         public ActionResult RemoveFromCart(int productId)
         {
@@ -80,12 +109,17 @@ namespace UI.Controllers
                 // 1. Kullanıcıyı Customers tablosuna kaydet
                 var customer = new Customer
                 {
-                    TC = model.TC,
+                    Email = model.Email,
                     Name = model.Name,
                     Phone = model.Phone
                 };
 
                 _customerService.Add(customer);
+                var customerId = _customerService.GetAll()
+                 .OrderByDescending(c => c.Id)
+                 .Select(c => c.Id)
+                 .FirstOrDefault(); 
+
 
                 // 2. Sepeti al
                 var cart = SessionHelper.GetCart(HttpContext);
@@ -108,7 +142,7 @@ namespace UI.Controllers
                         ProductId = item.ProductId,
                         ProductAmount = item.Quantity,
                         Price = item.Price,
-                        CustomerId = customer.TC,
+                        CustomerId = customerId,
                         Adress = model.Address,
                         OrderDate = DateTime.Now
                     };
@@ -128,6 +162,34 @@ namespace UI.Controllers
         public ActionResult OrderCompleted()
         {
             return View();
+        }
+
+        public ActionResult IncreaseQuantity(int productId)
+        {
+            var cart = SessionHelper.GetCart(HttpContext); // Get the cart from the session
+            var cartItem = cart.Items.FirstOrDefault(c => c.ProductId == productId); // Find the product in the cart
+
+            if (cartItem != null)
+            {
+                cartItem.Quantity++; // Increase the quantity by 1
+            }
+
+            SessionHelper.SetCart(HttpContext, cart); // Save the updated cart back to the session
+            return RedirectToAction("Index"); // Redirect to the cart page
+        }
+
+        public ActionResult DecreaseQuantity(int productId)
+        {
+            var cart = SessionHelper.GetCart(HttpContext); // Get the cart from the session
+            var cartItem = cart.Items.FirstOrDefault(c => c.ProductId == productId); // Find the product in the cart
+
+            if (cartItem != null && cartItem.Quantity > 1)
+            {
+                cartItem.Quantity--; // Decrease the quantity by 1
+            }
+
+            SessionHelper.SetCart(HttpContext, cart); // Save the updated cart back to the session
+            return RedirectToAction("Index"); // Redirect to the cart page
         }
     }
 

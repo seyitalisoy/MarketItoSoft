@@ -3,11 +3,13 @@
     ViewBag.Title = "ProductDetail";
     Layout = "~/Views/Shared/_LayoutMarket.cshtml";
 }
+
 <section class="products">
     <div class="box-container">
         <div class="box">
             <div class="icons">
-                <a href="@Url.Action("AddToCart", "Cart", new { productId = Model.Id })" class="fas fa-shopping-cart"></a>
+                <!-- Sepete ekle butonunu burada ekliyoruz -->
+                <a href="javascript:void(0);" onclick="addToCart(@Model.Id)" class="fas fa-shopping-cart"></a>
             </div>
             <div class="image">
                 <img src="@Model.Picture" alt="Ürün Resmi" class="product-image">
@@ -21,6 +23,7 @@
     </div>
 </section>
 
+<!-- Buradaki stil kodları ürün sayfası için düzenlendi -->
 <style>
     .products {
         display: flex;
@@ -44,11 +47,10 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-
-
     .fas.fa-shopping-cart {
         font-size: 24px;
         color: black;
+        cursor: pointer; /* Mouse üzerine geldiğinde işaretçi görünümü */
     }
 
     .image {
@@ -71,8 +73,6 @@
         padding: 10px;
     }
 
-
-
     .price {
         color: green;
         font-size: 16px;
@@ -83,5 +83,52 @@
         font-size: 14px;
         color: #555;
     }
-
 </style>
+
+@section Scripts
+{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Sepete ürün eklemek için AJAX fonksiyonu
+        function addToCart(productId) {
+            $.ajax({
+                type: "POST",
+                url: "/Home/AddToCart",  // HomeController içindeki AddToCart metodunu çağırıyoruz
+                data: { productId: productId, quantity: 1 },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message); // Ürün sepete eklendi mesajı
+                        // Sepet miktarını güncelleme
+                        updateCartQuantity(response.cartItemCount);
+                    } else {
+                        alert("Ürün eklenirken hata oluştu!");
+                    }
+                },
+                error: function () {
+                    alert("Bağlantı hatası!");
+                }
+            });
+        }
+
+        function updateCartQuantity(count) {
+            let cartQuantity = $("#cart-quantity");
+            cartQuantity.text(count); // Sepet miktarını güncelle
+            if (count > 0) {
+                cartQuantity.show(); // Sepet boş değilse göster
+            } else {
+                cartQuantity.hide(); // Sepet boşsa gizle
+            }
+        }
+
+        $(document).ready(function () {
+            // Sayfa yüklendiğinde, sepetteki ürün sayısını al ve göster
+            $.ajax({
+                type: "GET",
+                url: "/Cart/GetCartItemCount",  // Sepet miktarını almak için doğru URL
+                success: function (response) {
+                    updateCartQuantity(response.cartItemCount);
+                }
+            });
+        });
+    </script>
+}

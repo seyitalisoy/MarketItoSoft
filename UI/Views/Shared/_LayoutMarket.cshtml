@@ -1,16 +1,40 @@
-﻿
-<head>
+﻿<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ana sayfa</title>
 
-    <!-- font awesome cdn linki  -->
+    <!-- font awesome cdn linki -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 
-    <!-- özel css dosyası linki  -->
+    <!-- özel css dosyası linki -->
     <link rel="stylesheet" href="~/grocery website/css/style.css">
 
+    <!-- Ekstra stil -->
+    <style>
+        .cart-container {
+            position: relative;
+            display: inline-block;
+            font-size: 24px;
+        }
+
+        .fas.fa-shopping-cart {
+            color: red; /* Kırmızı yapmak için */
+            font-size: 30px; /* İstediğiniz boyut */
+        }
+
+        .cart-quantity {
+            position: absolute;
+            top: -5px; /* Üst kısmında biraz yukarıda olması için */
+            right: -10px; /* Sağ tarafta olması için */
+            background-color: red; /* Arka planı kırmızı yap */
+            color: white; /* Yazıyı beyaz yap */
+            border-radius: 50%;
+            padding: 3px 6px; /* Küçültülmüş padding */
+            font-size: 12px; /* Küçültülmüş yazı boyutu */
+        }
+    </style>
 </head>
 
 <body>
@@ -30,8 +54,11 @@
         <div class="icons">
             <div id="menu-btn" class="fas fa-bars"></div>
             <div id="search-btn" class="fas fa-search"></div>
-            @*<div id="cart-btn" class="fas fa-shopping-cart"></div>*@
-            <a href="/Cart/Index"><div class="fas fa-shopping-cart"></div></a>
+            <a href="/Cart/Index" class="cart-container">
+                <div class="fas fa-shopping-cart"></div>
+                <span id="cart-quantity" class="cart-quantity">0</span>
+            </a>
+
             <a href="/Product/Index"><div id="admin-profile" class="fas fa-user-circle"></div></a>
         </div>
 
@@ -40,59 +67,6 @@
             <label for="search-box" class="fas fa-search"></label>
         </form>
 
-        @*<div class="shopping-cart">
-            <div class="box">
-                <i class="fas fa-times"></i>
-                <img src="~/grocery website/image/cart-1.jpg" alt="">
-                <div class="content">
-                    <h3>Organik gıda</h3>
-                    <span class="quantity">1</span>
-                    <span class="multiply">x</span>
-                    <span class="price">$18.99</span>
-                </div>
-            </div>
-            <div class="box">
-                <i class="fas fa-times"></i>
-                <img src="~/grocery website/image/cart-2.jpg" alt="">
-                <div class="content">
-                    <h3>Organik gıda</h3>
-                    <span class="quantity">1</span>
-                    <span class="multiply">x</span>
-                    <span class="price">$18.99</span>
-                </div>
-            </div>
-            <div class="box">
-                <i class="fas fa-times"></i>
-                <img src="~/grocery website/image/cart-3.jpg" alt="">
-                <div class="content">
-                    <h3>Organik gıda</h3>
-                    <span class="quantity">1</span>
-                    <span class="multiply">x</span>
-                    <span class="price">$18.99</span>
-                </div>
-            </div>
-            <h3 class="total"> Toplam : <span>56.97</span> </h3>
-            <a href="/Cart/Index" class="btn">Sepete git</a>
-        </div>*@
-        @*<div class="shopping-cart">
-            @foreach (var item in Model.CartItems)
-            {
-                <div class="box">
-                    <i class="fas fa-times"></i>
-                    <img src="@item.Product.Picture" alt="@item.ProductName" style="width: 60px; height: 60px;">
-                    <div class="content">
-                        <h3>@item.ProductName</h3>
-                        <span class="quantity">@item.Quantity</span>
-                        <span class="multiply">x</span>
-                        <span class="price">@string.Format("{0:C}", item.Price)</span>
-                    </div>
-                </div>
-            }
-
-            <h3 class="total">Toplam: <span>@string.Format("{0:C}", Model.TotalPrice)</span></h3>
-
-            <a href="/Cart/Checkout" class="btn">Sepete git</a>
-        </div>*@
 
 
     </header>
@@ -112,8 +86,8 @@
                 <a href="/"> <i class="fas fa-arrow-right"></i>Ana sayfa</a>
                 <a href="/Home/Shop"> <i class="fas fa-arrow-right"></i> Mağaza</a>
                 <a href="/Home/About"> <i class="fas fa-arrow-right"></i> Hakkında</a>
-                @*<a href="/Market/Review"> <i class="fas fa-arrow-right"></i> Yorumlar</a>*@
-                @*<a href="/Market/Blog"> <i class="fas fa-arrow-right"></i> Blog</a>*@
+                @*@<a href="/Market/Review"> <i class="fas fa-arrow-right"></i> Yorumlar</a>@
+                @<a href="/Market/Blog"> <i class="fas fa-arrow-right"></i> Blog</a>@*@
                 <a href="/Home/Contact"> <i class="fas fa-arrow-right"></i> İletişim</a>
             </div>
 
@@ -155,4 +129,56 @@
     <!-- footer bölümü biter -->
     <!-- özel css dosyası linki  -->
     <script src="~/grocery website/js/script.js"></script>
+    <!-- özel css dosyası linki  -->
+    <script src="~/grocery website/js/script.js"></script>
+
+    <!-- Sepet miktarını güncelleyen script -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function addToCart(productId) {
+            $.ajax({
+                type: "POST",
+                url: "/Cart/AddToCart",
+                data: { productId: productId, quantity: 1 },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        updateCartQuantity(response.cartItemCount);
+                    } else {
+                        alert("Ürün eklenirken hata oluştu!");
+                    }
+                },
+                error: function () {
+                    alert("Bağlantı hatası!");
+                }
+            });
+        }
+
+        function updateCartQuantity(count) {
+            let cartQuantity = $("#cart-quantity");
+            cartQuantity.text(count);
+            if (count > 0) {
+                cartQuantity.show();
+            } else {
+                cartQuantity.hide();
+            }
+        }
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "/Cart/GetCartItemCount",
+                success: function (response) {
+                    updateCartQuantity(response.cartItemCount);
+                }
+            });
+        });
+    </script>
+
+    @RenderSection("Scripts", required: false)
+
+
 </body>
+
+
+

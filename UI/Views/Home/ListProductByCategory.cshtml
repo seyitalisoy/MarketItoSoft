@@ -4,16 +4,17 @@
     Layout = "~/Views/Shared/_LayoutMarket.cshtml";
 }
 
-<section class="products">
 
-    <h1 class="title">  <span>Ürünlerimiz</span> </h1>
+<section class="products">
+    <h1 class="title"> <span>Ürünlerimiz</span> </h1>
 
     <div class="box-container">
         @foreach (var item in Model)
         {
             <div class="box">
                 <div class="icons">
-                    <a href="@Url.Action("AddToCart", "Cart", new { productId  = item.Id })" class="fas fa-shopping-cart"></a>
+                    <!-- AddToCart butonunu AJAX ile güncelle -->
+                    <a href="javascript:void(0);" onclick="addToCart(@item.Id)" class="fas fa-shopping-cart"></a>
 
                     <a href="@Url.Action("ProductDetail", "Home", new { id = item.Id })" class="fas fa-eye"></a>
                 </div>
@@ -24,7 +25,45 @@
                     <h3>@item.Name</h3>
                     <div class="price">@item.Price</div>
                 </div>
-            </div> <!-- Bu div kapanmamıştı, şimdi kapandı. -->
+            </div>
         }
-    </div> <!-- box-container div'inin kapanışı. -->
+    </div>
 </section>
+
+@section Scripts
+{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>// Sepete ürün eklemek için AJAX fonksiyonu
+        function addToCart(productId) {
+            $.ajax({
+                type: "POST",
+                url: "/Cart/AddToCart",
+                data: { productId: productId, quantity: 1 },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        // Sepet miktarını güncelleme
+                        updateCartQuantity(response.cartItemCount);
+                    } else {
+                        alert("Ürün eklenirken hata oluştu!");
+                    }
+                },
+                error: function () {
+                    alert("Bağlantı hatası!");
+                }
+            });
+        }
+
+        // Sepet miktarını güncelleme fonksiyonu
+        function updateCartQuantity(count) {
+            let cartQuantity = $("#cart-quantity");
+            cartQuantity.text(count); // Yeni değeri ata
+            if (count > 0) {
+                cartQuantity.show(); // Eğer sepet boş değilse göster
+            } else {
+                cartQuantity.hide(); // Sepet boşsa gizle
+            }
+        }</script>
+}
+
+
